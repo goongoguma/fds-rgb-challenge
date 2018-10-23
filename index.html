@@ -18,7 +18,7 @@
     <main class="main">
       <h2 class='main-heading'>SCORE: <span class='score'>0</span></h2>
       <div class="circleAll">
-        <h2 id='rgb'>rgb(0, 0, 0)</h2>
+        <h2 class='rgb color-change'>rgb(0, 0, 0)</h2>
         <a href="#" class='circles'></a>
         <a href="#" class='circles'></a>
         <a href="#" class='circles'></a>
@@ -46,9 +46,11 @@
   </div>
 </body>
 <script>
-  let score = 0;
+   let score = 0;
   const right = document.querySelector('.right');
   const wrong = document.querySelector('.wrong');
+  
+  // 랜덤색상 함수
   const randomColor = () => {
     const r = Math.floor(Math.random() * 256);
     const g = Math.floor(Math.random() * 256);
@@ -56,57 +58,95 @@
     return `rgb(${r}, ${g}, ${b})`
   }
 
+  // 랜덤색상 배열 및 랜덤 뽑기 함수
   const mainStage = () => {
     const randomColArr = [randomColor(), randomColor(), randomColor()];
     document.querySelectorAll('.circles').forEach((circle, index) => {
       circle.style.backgroundColor = randomColArr[index];
     })
     answer = Math.floor(Math.random() * 3)
-    document.getElementById('rgb').textContent = randomColArr[answer];
+    document.querySelector('.rgb').textContent = randomColArr[answer];
   }
 
+  // 이벤트 함수
   document.querySelectorAll('.circles').forEach((circle, index) => {
     circle.addEventListener('click', e => {
       if (answer === index) {
         score++;
+
+        // 정답을 선택하면 display: none에서 block으로 전환되며 오답함수의 block은 제거된다. 
         right.classList.add('block');
         wrong.classList.remove('block');
+        
+        // 정답을 선택하면 원의 display를 none으로 만들어준다.
         document.querySelectorAll('.circles').forEach((circle, index) => {
           circle.classList.add('close');
         })
+        // 정답을 선택하면 rgb의 텍스트가 배경색과 같은 색이 된다. 
+        document.querySelector('.rgb').classList.add ('camo')
       } else {
         score = 0;
+
+        // 오답을 선택하면 display: none에서 block으로 전환되며 정답함수의 block은 제거된다. 
         wrong.classList.add('block');
         right.classList.remove('block');
+
+        // 오답을 선택하면 원의 display를 none으로 만들어준다.
         document.querySelectorAll('.circles').forEach((circle, index) => {
           circle.classList.add('close');
         })
+
+        // 오답을 선택하면 rgb의 텍스트가 배경색과 같은 색이 된다. 
+        document.querySelector('.rgb').classList.add ('camo')
       }
+      // 맨 마지막으로 점수 텍스트를 업데이트한다. 
       document.querySelector('.score').textContent = score;
     })
   })
 
+  // 정답선택 이벤트 이후의 함수 
   document.querySelector('.right-btn').addEventListener('click', e => {
+
+    // 정답을 선택할시 작동이 되는 버튼 이벤트를 리셋시킨다.
     right.classList.remove('block');
-    document.querySelector('.total-score').textContent = score;
     document.querySelectorAll('.circles').forEach((circle, index) => {
-          if(circle.classList.contains('close')) {
-            circle.classList.remove('close')
-          }
-        })
+
+      // 각각의 원에 있는 클래스를 검사하고 조건식을 실행시킨다.
+      if (circle.classList.contains('close')) {
+
+        // 이벤트 발생 이후 원이 다시 화면에 생성되게 한다.
+        circle.classList.remove('close')
+      }
+    })
+    // rgb의 텍스트를 원상복구 시킨다. 
+    document.querySelector('.rgb').classList.remove('camo')
+
+    // 점수 업데이트
+    document.querySelector('.total-score').textContent = score;
     mainStage();
   })
 
+  // 오답선택 이벤트 이후의 함수
   document.querySelector('.wrong-btn').addEventListener('click', e => {
+
+    // 오답을 선택할시 작동이 되는 버튼 이벤트를 리셋시킨다.
     wrong.classList.remove('block');
     document.querySelectorAll('.circles').forEach((circle, index) => {
-          if(circle.classList.contains('close')) {
-            circle.classList.remove('close')
-          }
-        })
+      if (circle.classList.contains('close')) {
+
+        // 이벤트 발생 이후 원이 다시 화면에 생성되게 한다.
+        circle.classList.remove('close')
+      }
+    })
+    // rgb의 텍스트를 원상복구 시킨다. 
+    document.querySelector('.rgb').classList.remove('camo');
+    
+    // textContent를 0으로 설정하지 않으면 scroe가 그 전에 가지고있던 점수를 출력한다. 
+    document.querySelector('.total-score').textContent = 0;
     mainStage();
   })
 
+  
   document.querySelector('.help').addEventListener('mouseover', e => {
     document.querySelector('.rule').classList.add('block')
   })
