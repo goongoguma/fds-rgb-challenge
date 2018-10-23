@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css?family=Cinzel" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <title>RGB Challenge</title>
+</head>
+
+<body>
+  <div class="wrapper">
+    <header class="header">
+      <h1>THE GREAT <br><span>RGB</span></br> GUESSING CHALLENGE</h1>
+    </header>
+    <main class="main">
+      <h2 class='main-heading'>SCORE: <span class='score'>0</span></h2>
+      <div class="circleAll">
+        <h2 id='rgb'>rgb(0, 0, 0)</h2>
+        <a href="#" class='circles'></a>
+        <a href="#" class='circles'></a>
+        <a href="#" class='circles'></a>
+        <div class="cover"></div>
+        <div class="right">
+          CORRECT!
+          <div class="right-btn">NEXT</div>
+        </div>
+        <div class="wrong">
+          INCORRECT!
+          <br> Total Score : <div class="total-score">0</div></br>
+          <div class="wrong-btn">AGAIN</div>
+        </div>
+      </div>
+    </main>
+    <footer class="footer">
+      <a href="#" class='help' title='game rule'>?</a>
+      <p class="rule">
+        Pick one circle of mixed color. </br>
+        'r' indicates color red, </br>
+        'g' indicates color green, </br>
+        'b' indicates color blue. </br>
+      </p>
+    </footer>
+  </div>
+</body>
+<script>
+  let score = 0;
+  const right = document.querySelector('.right');
+  const wrong = document.querySelector('.wrong');
+  const randomColor = () => {
+    const r = Math.floor(Math.random() * 256);
+    const g = Math.floor(Math.random() * 256);
+    const b = Math.floor(Math.random() * 256);
+    return `rgb(${r}, ${g}, ${b})`
+  }
+
+  const mainStage = () => {
+    const randomColArr = [randomColor(), randomColor(), randomColor()];
+    document.querySelectorAll('.circles').forEach((circle, index) => {
+      circle.style.backgroundColor = randomColArr[index];
+    })
+    answer = Math.floor(Math.random() * 3)
+    document.getElementById('rgb').textContent = randomColArr[answer];
+  }
+
+  document.querySelectorAll('.circles').forEach((circle, index) => {
+    circle.addEventListener('click', e => {
+      if (answer === index) {
+        score++;
+        right.classList.add('block');
+        wrong.classList.remove('block');
+        document.querySelectorAll('.circles').forEach((circle, index) => {
+          circle.classList.add('close');
+        })
+      } else {
+        score = 0;
+        wrong.classList.add('block');
+        right.classList.remove('block');
+        document.querySelectorAll('.circles').forEach((circle, index) => {
+          circle.classList.add('close');
+        })
+      }
+      document.querySelector('.score').textContent = score;
+    })
+  })
+
+  document.querySelector('.right-btn').addEventListener('click', e => {
+    right.classList.remove('block');
+    document.querySelector('.total-score').textContent = score;
+    document.querySelectorAll('.circles').forEach((circle, index) => {
+          if(circle.classList.contains('close')) {
+            circle.classList.remove('close')
+          }
+        })
+    mainStage();
+  })
+
+  document.querySelector('.wrong-btn').addEventListener('click', e => {
+    wrong.classList.remove('block');
+    document.querySelectorAll('.circles').forEach((circle, index) => {
+          if(circle.classList.contains('close')) {
+            circle.classList.remove('close')
+          }
+        })
+    mainStage();
+  })
+
+  document.querySelector('.help').addEventListener('mouseover', e => {
+    document.querySelector('.rule').classList.add('block')
+  })
+
+  document.querySelector('.help').addEventListener('mouseout', e => {
+    document.querySelector('.rule').classList.remove('block')
+  })
+
+  mainStage()
+</script>
+
+</html>

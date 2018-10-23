@@ -1,0 +1,176 @@
+/* #363535
+#2980B9
+rosybrown */
+
+/* 기본 셋팅 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.wrapper {
+  width: 100%;
+  height: 100vh;
+  margin: 0 auto;
+  text-align: center;
+  background-color: #363535;
+  font-size: 5px;
+}
+/* 애니메이션 */
+
+@keyframes moveInBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(3rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+@keyframes moveInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-5rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+ /* 헤더 */
+.header {
+  background-color: #2980B9;
+  padding: 15px 0;
+  font-weight: 100;
+  color: whitesmoke;
+  font-family: 'Cinzel', serif;
+}
+
+.header h1 {
+  font-weight: 300;
+  font-size: 1.5rem;
+}
+
+.header span {
+  font-weight: 700;
+  font-size: 2.5rem;
+}
+
+/* 메인 */
+.main {
+  height: 50%;
+  font-size: 1rem;
+  color: whitesmoke;
+}
+
+.main-heading {
+  margin-top: 20px;
+}
+
+.circleAll {
+  margin-top: 20px;
+}
+
+#rgb {
+  letter-spacing: 0.5rem;
+  animation: moveInLeft .5s ease-out;
+  padding-top: 30px;
+  font-size: 2rem;
+}
+
+.circles {
+  height: 8rem;
+  width: 8rem;
+  margin-top: 5rem;
+  margin-right: 3rem;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  transition: all .2s;
+  animation: moveInBottom .5s;
+  animation-fill-mode: backwards;
+  background-color: #fff;
+}
+
+.circles.close {
+  display: none;
+}
+
+.circles.open {
+  display: block;
+}
+
+.circles:hover {
+  transform: translateY(-7px);
+}
+
+.circles:active {
+  transform: translateY(0);
+}
+
+.right, .wrong {
+  color: #fff;
+  font-size: 2rem;
+  display: none;
+  margin-top: 3%;
+}
+
+.right.block, .wrong.block {
+  display: block;
+}
+
+.right-btn, .wrong-btn {
+  display: block;
+  cursor: pointer;
+  background-color: rosybrown;
+  width: 200px;
+  height: 50px;
+  border-radius: 10px;
+  margin-top: 30px;
+  font-size: 2rem;
+  display: inline-block;
+}
+.total-score {
+  font-size: 2rem;
+  display: inline-block;
+}
+
+/* 푸터 */
+.footer {
+  float: right;
+  position: relative;
+}
+
+.help {
+  margin-left: 20px;
+  height: 3rem;
+  width: 3rem;
+  background: whitesmoke;
+  color: #181818;
+  font-weight: 600;
+  font-size: 2rem;
+  margin-right: 20px;
+  border-radius: 50%;
+  text-align: center;
+  display: block;
+}
+
+.rule {
+  display: none;
+}
+
+.rule.block {
+  display: block;
+  background-color: #363535;
+  font-size: 1rem;
+  position: absolute;
+  margin-left: -100px;
+  margin-top: 20px;
+  color: whitesmoke;
+  text-align: left;
+}
+
