@@ -84,7 +84,7 @@ rosybrown */
 .rgb {
   letter-spacing: 0.5rem;
   animation: moveInLeft .5s ease-out;
-  padding-top: 30px;
+  padding-top: 4rem;
   font-size: 2rem;
 }
 
@@ -95,7 +95,7 @@ rosybrown */
 .circles {
   height: 5.5rem;
   width: 5.5rem;
-  margin-top: 3rem;
+  margin-top: 5rem;
   margin-right: 2rem;
   border-radius: 50%;
   display: inline-block;
@@ -148,6 +148,7 @@ rosybrown */
   left: 50%;
   transform: translate(-50%, 0);
 }
+
 .total-score {
   font-size: 2rem;
   display: inline-block;
